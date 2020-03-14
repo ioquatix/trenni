@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 PARSERS_DIRECTORY = File.expand_path("../parsers", __dir__)
 FALLBACK_DIRECTORY = File.expand_path("../lib/trenni/fallback", __dir__)
@@ -10,7 +11,7 @@ task :generate_fallback_parsers do
 			sh("ragel", "-I", PARSERS_DIRECTORY, "-R", parser_path, "-F1")
 		end
 		
-		sh("ruby-beautify", "--tabs", "--overwrite", *Dir.glob("*.rb"))
+		# sh("ruby-beautify", "--tabs", "--overwrite", *Dir.glob("*.rb"))
 	end
 end
 

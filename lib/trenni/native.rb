@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Copyright, 2016, by Samuel G. D. Williams. <http://www.codeotaku.com>
 # 
 # Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -18,7 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-require_relative 'parse_error'
+require_relative 'error'
 
 # Methods on the following classes may be replaced by native implementations:
 require_relative 'tag'

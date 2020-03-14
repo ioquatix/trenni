@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright, 2012, by Samuel G. D. Williams. <http://www.codeotaku.com>
+# Copyright, 2020, by Samuel G. D. Williams. <http://www.codeotaku.com>
 # 
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -20,17 +20,75 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
+require_relative 'buffer'
+
+require 'uri'
+
 module Trenni
-	# This is a sample delegate for capturing all events. It's only use is for testing.
-	class ParseDelegate
-		def initialize
-			@events = []
+	class Query < Hash
+		def parse(buffer)
+			Parsers.parse_query(buffer, Delegate.new(self))
 		end
 		
-		attr :events
-		
-		def method_missing(*args)
-			@events << args
+		class Delegate
+			def initialize(top = {})
+				@top = top
+				
+				@current = @top
+				@index = nil
+			end
+			
+			def string(key, encoded)
+				if encoded
+					key = ::URI.decode_www_form_component(key)
+				end
+				
+				index(key.to_sym)
+			end
+			
+			def integer(key)
+				index(key.to_i)
+			end
+			
+			def index(key)
+				if @index
+					@current = @current.fetch(@index) do
+						@current[@index] = {}
+					end
+				end
+				
+				@index = key
+			end
+			
+			def append
+				if @index
+					@current = @current.fetch(@index) do
+						@current[@index] = []
+					end
+				end
+				
+				@index = @current.size
+			end
+			
+			def assign(value, encoded)
+				if encoded
+					value = ::URI.decode_www_form_component(value)
+				end
+				
+				@current[@index] = value
+				
+				@current = @top
+				@index = nil
+			end
+			
+			def pair
+				if @index
+					@current[@index] = true
+				end
+				
+				@current = @top
+				@index = nil
+			end
 		end
 	end
 end

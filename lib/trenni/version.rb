@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Copyright, 2012, by Samuel G. D. Williams. <http://www.codeotaku.com>
 # 
 # Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -19,5 +21,5 @@
 # THE SOFTWARE.
 
 module Trenni
-	VERSION = "3.7.1"
+	VERSION = "3.9.0"
 end

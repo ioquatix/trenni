@@ -199,14 +199,14 @@
 	action cdata_error {
 		raise ParseError.new("could not parse cdata", buffer, p)
 	}
-
+	
 	# This magic ensures that we process bytes.
 	getkey bytes[p];
 	
 	include markup "trenni/markup.rl";
 }%%
 
-require_relative '../parse_error'
+require_relative '../error'
 
 module Trenni
 	module Fallback
@@ -214,6 +214,7 @@ module Trenni
 		
 		def self.parse_markup(buffer, delegate, entities)
 			data = buffer.read
+			encoding = buffer.encoding
 			bytes = data.bytes
 			
 			p = 0

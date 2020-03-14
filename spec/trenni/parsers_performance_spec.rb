@@ -1,7 +1,11 @@
+# frozen_string_literal: true
 
 require 'benchmark/ips'
 require 'trenni/parsers'
 require 'trenni/entities'
+
+require 'trenni/query'
+require 'rack/utils'
 
 require 'nokogiri'
 
@@ -63,6 +67,34 @@ RSpec.describe Trenni::Parsers do
 				x.report("Large (ERB)") do |times|
 					while (times -= 1) >= 0
 						ERB.new(erb_buffer.read)
+					end
+				end
+				
+				x.compare!
+			end
+		end
+	end
+	
+	describe '#parse_query' do
+		let(:string) {"foo=hi%20there&bar[blah]=123&bar[quux][0]=1&bar[quux][1]=2&bar[quux][2]=3"}
+		
+		it "should be fast to parse large query strings" do
+			# query = Trenni::Query.new
+			# query.parse(Trenni::Buffer.new string)
+			# pp query
+			# 
+			# pp Rack::Utils.parse_nested_query(string)
+			
+			Benchmark.ips do |x|
+				x.report("Large (Trenni)") do |times|
+					while (times -= 1) >= 0
+						Trenni::Query.new.parse(Trenni::Buffer.new string)
+					end
+				end
+				
+				x.report("Large (Rack)") do |times|
+					while (times -= 1) >= 0
+						Rack::Utils.parse_nested_query(string)
 					end
 				end
 				

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Copyright, 2012, by Samuel G. D. Williams. <http://www.codeotaku.com>
 # 
 # Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -123,7 +125,7 @@ module Trenni
 		end
 		
 		def to_proc(scope = @binding.dup)
-			@compiled_proc ||= eval("proc{|#{OUT}|;#{code}}", scope, @buffer.path).freeze
+			@compiled_proc ||= eval("\# frozen_string_literals: true\nproc{|#{OUT}|;#{code}}", scope, @buffer.path, 0).freeze
 		end
 		
 		protected

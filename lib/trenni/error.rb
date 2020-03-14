@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Copyright, 2012, by Samuel G. D. Williams. <http://www.codeotaku.com>
 # 
 # Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -21,7 +23,10 @@
 require_relative 'buffer'
 
 module Trenni
-	class ParseError < StandardError
+	class Error < StandardError
+	end
+	
+	class ParseError < Error
 		def initialize(message, buffer, offset)
 			super(message)
 			

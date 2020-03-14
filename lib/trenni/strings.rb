@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Copyright, 2012, by Samuel G. D. Williams. <http://www.codeotaku.com>
 # 
 # Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -28,7 +30,11 @@ module Trenni
 		end
 
 		def self.to_quoted_string(string)
-			'"' + string.gsub('"', '\\"').gsub(/\r/, "\\r").gsub(/\n/, "\\n") + '"'
+			string = string.gsub('"', '\\"')
+			string.gsub!(/\r/, "\\r")
+			string.gsub!(/\n/, "\\n")
+			
+			return "\"#{string}\""
 		end
 		
 		# `value` must already be escaped.
@@ -41,11 +47,18 @@ module Trenni
 		end
 		
 		def self.to_title(string)
-			string.gsub(/(^|[ \-_])(.)/){" " + $2.upcase}.strip
+			string = string.gsub(/(^|[ \-_])(.)/){" " + $2.upcase}
+			string.strip!
+			
+			return string
 		end
-
+		
 		def self.to_snake(string)
-			string.gsub("::", "").gsub(/([A-Z]+)/){"_" + $1.downcase}.sub(/^_+/, "")
+			string = string.gsub("::", "")
+			string.gsub!(/([A-Z]+)/){"_" + $1.downcase}
+			string.sub!(/^_+/, "")
+			
+			return string
 		end
 	end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Copyright, 2012, by Samuel G. D. Williams. <http://www.codeotaku.com>
 # 
 # Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -21,3 +23,5 @@
 require_relative 'trenni/native'
 require_relative 'trenni/builder'
 require_relative 'trenni/template'
+
+require_relative 'trenni/reference'

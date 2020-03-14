@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 
 # Specify your gem's dependencies in trenni.gemspec
@@ -6,7 +8,6 @@ gemspec
 group :development do
 	gem 'pry'
 	gem "rake-compiler"
-	gem "ruby-beautify"
 end
 
 group :test do
