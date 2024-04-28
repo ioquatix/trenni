@@ -1,5 +1,8 @@
 # Trenni
 
+> [!NOTE]  
+> Trenni and all related gems are replaced by the [XRB](https://github.com/socketry/xrb).
+
 Trenni is a templating system built loosely on top of XHTML markup. It uses efficient native parsers where possible and compiles templates into efficient Ruby. It also includes a markup builder to assist with the generation of pleasantly formatted markup which is compatible with the included parsers.
 
 [![Development Status](https://github.com/ioquatix/trenni/workflows/Development/badge.svg)](https://github.com/ioquatix/trenni/actions?workflow=Development)
